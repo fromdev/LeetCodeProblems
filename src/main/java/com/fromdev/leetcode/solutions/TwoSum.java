@@ -1,6 +1,8 @@
 package com.fromdev.leetcode.solutions;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
 
@@ -16,23 +18,60 @@ Given nums = [2, 7, 11, 15], target = 9,
 
 Because nums[0] + nums[1] = 2 + 7 = 9,
 return [0, 1].
+
 */
 public class TwoSum {
     public static void main(String[] args) {
         TwoSum twoSum = new TwoSum();
-        int[] result = twoSum.twoSum(new int[]{2, 7, 11, 15}, 9);
-        System.out.println(Arrays.asList(result));
+//        int[] result = twoSum.twoSum(new int[]{2, 7, 11, 15}, 9);
+        int[] result = twoSum.twoSumBruteForce(new int[]{3,2,4}, 6);
+        String display = (result.length > 1) ? result[0] + " " + result[1] : "None";
+        System.out.println(display);
     }
-    public int[] twoSum(int[] nums, int target) {
+    public int[] twoSumBruteForce(int[] nums, int target) {
         int[] result = {};
         if(nums == null || nums.length ==0 ) return result;
 
-        int current = 0;
-        while(current+1 < nums.length) {
-            if(target == nums[current] + nums[current+1]){
-                return new int[]{nums[current] , nums[current+1]};
+        int first = 0;
+
+        while(first >= 0 && first < nums.length -1) {
+            int second = first+1;
+            while( second > 0 && second < nums.length) {
+                int sum = nums[first] + nums[second];
+                if (sum == target) {
+                    return new int[]{first, second};
+                }
+                second++;
+            }
+            first++;
+        }
+
+        return result;
+    }
+
+    public int[] twoSumTwoPassHashMap(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], i);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement) && map.get(complement) != i) {
+                return new int[] { i, map.get(complement) };
             }
         }
-        return result;
+        throw new IllegalArgumentException("No two sum solution");
+    }
+
+    public int[] twoSumOnePassHashMap(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
+            }
+            map.put(nums[i], i);
+        }
+        throw new IllegalArgumentException("No two sum solution");
     }
 }
