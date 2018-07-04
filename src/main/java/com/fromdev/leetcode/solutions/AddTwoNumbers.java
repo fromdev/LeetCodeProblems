@@ -5,7 +5,7 @@ public class AddTwoNumbers {
         AddTwoNumbers addTwoNumbers = new AddTwoNumbers();
         ListNode l1 = newListNode(Integer.MAX_VALUE);
         ListNode l2 = newListNode(119876);
-        ListNode sum = addTwoNumbers.addTwoNumbers2(l1,l2);
+        ListNode sum = addTwoNumbers.addTwoNumbers(l1,l2,0);
         print(l1);
         System.out.print(" + ");
         print(l2);
@@ -50,6 +50,20 @@ public class AddTwoNumbers {
             sum.next = caryOverNode;
         }
         return sum;
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2, int carry) {
+        int val1 = (l1 == null) ? 0 : l1.val;
+        int val2 = (l2 == null) ? 0 : l2.val;
+        int sum = val1 + val2 + carry;
+        carry = sum / 10;
+        ListNode sumNode = new ListNode(sum % 10);
+        l1 = (l1 == null) ? null : l1.next;
+        l2 = (l2 == null) ? null : l2.next;
+        if(l1 != null || l2 != null || carry > 0) {
+            sumNode.next = addTwoNumbers(l1,l2,carry);
+        }
+        return sumNode;
     }
 
     //from forum answer
