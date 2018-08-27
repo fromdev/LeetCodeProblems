@@ -21,7 +21,6 @@ public class MedianSortedArrays {
         return median;
     }
 
-
     private void printArray(int[] arr) {
         for(int i: arr) {
             System.out.print(i);
