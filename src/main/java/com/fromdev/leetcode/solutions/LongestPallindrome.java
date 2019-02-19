@@ -9,7 +9,7 @@ package com.fromdev.leetcode.solutions;
 public class LongestPallindrome {
 
     public static void main(String[] args) {
-        LongestPallindrome solution = new LongestPallindrome();
+        LongestPallindrome solution = null;
 //        System.out.println(solution.isPallindrome("aaaaaba",0,4));
         System.out.println(solution.longestPalindrome("ccc"));
         System.out.println(solution.longestPalindrome("abab"));
