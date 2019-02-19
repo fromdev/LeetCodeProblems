@@ -77,7 +77,6 @@ public class StringToInteger {
             number = (negativeSign) ? number * -1 : number;
         }
         return number;
-
     }
 
 }
